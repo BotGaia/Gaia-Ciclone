@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  gaiaciclone:
+    build: .
+    restart: always
+    environment:
+      - API_KEY=${API_KEY}
+      - ENVIRONMENT=dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3001:3001
+    command: npm run dev
+    depends_on:
+      - mongociclone
+  
+  mongociclone:
+    image: aashreys/mongo-auth:latest
+    command: mongod --port 27018
+    ports: 
+      - 27018:27018
