@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongooseConnection = require('./db/mongooseConnectionDb');
 
 const app = express();
+
+mongooseConnection.connect();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
