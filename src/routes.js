@@ -1,5 +1,5 @@
 const express = require('express');
-const cycloneRequest = require('../src/requests/cycloneRequest');
+const ReadCyclones = require('./utils/readCyclonesUtil');
 
 const router = express.Router();
 
@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/allCyclones', (req, res) => {
-  cycloneRequest.getAllCyclones().then((value) => {
-    res.json(value.data);
+  ReadCyclones.readCyclones().then((cyclones) => {
+    res.json(cyclones);
   });
 });
 

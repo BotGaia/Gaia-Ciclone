@@ -12,6 +12,7 @@ class Cyclone {
       endDate,
       stormType,
       windSpeed,
+      class: 'cyclone',
     });
   }
 

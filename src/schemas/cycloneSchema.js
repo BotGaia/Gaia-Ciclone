@@ -7,6 +7,7 @@ const CycloneSchema = new mongoose.Schema({
   endDate: String,
   stormType: String,
   windSpeed: String,
+  class: String,
 });
 
 module.exports = CycloneSchema;
