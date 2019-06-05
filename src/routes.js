@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const endpoints = require('./utils/endpointsUtil');
 const CycloneAlertSchema = require('./schemas/cycloneAlertSchema');
+
 const CycloneAlertModel = mongoose.model('CycloneAlertModel', CycloneAlertSchema);
 const treatCycloneAlert = require('../src/utils/treatCycloneAlertUtil');
 
@@ -27,27 +28,31 @@ router.get('/deleteCycloneAlert', (req, res) => {
       CycloneAlertModel.deleteOne().then(() => {
         res.json('Alerta de ciclone excluído');
       });
-    }
-    else {
+    } else {
       res.json('Erro ao encontrar alerta do usuário');
-      return;
     }
-  });
-
-  router.get('/userCycloneAlert', (req, res) => {
-    if (!req.query.id) {
-      res.json('Parâmetro inválido, tente da seguinte maneira: id=telegramId');
-      return;
-    }
-    CycloneAlertModel.find({ telegramId: req.query.id }).then((cycloneAlert) => {
-      if (cycloneAlert.length > 0) {
-        res.json("Alerta de ciclone existente");
-      }
-      else {
-        res.json("Alerta de ciclone não existente");
-      }
-    });
   });
 });
+
+router.get('/allCycloneAlerts', (req, res) => {
+  treatCycloneAlert.getAllCycloneAlerts().then((cycloneAlerts) => {
+    res.json(cycloneAlerts);
+  });
+});
+
+router.get('/userCycloneAlert', (req, res) => {
+  if (!req.query.id) {
+    res.json('Parâmetro inválido, tente da seguinte maneira: id=telegramId');
+    return;
+  }
+  CycloneAlertModel.find({ telegramId: req.query.id }).then((cycloneAlert) => {
+    if (cycloneAlert.length > 0) {
+      res.json('Alerta de ciclone existente');
+    } else {
+      res.json('Alerta de ciclone não existente');
+    }
+  });
+});
+
 
 module.exports = app => app.use('/', router);

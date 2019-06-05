@@ -15,4 +15,3 @@ require('./routes')(app);
 app.listen(3001);
 
 module.exports = app;
-
