@@ -9,9 +9,7 @@ mongooseConnection.connect();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (_, res) => {
-  res.json({ Hello: 'World' });
-});
+require('./routes')(app);
 
 app.listen(3001);
 

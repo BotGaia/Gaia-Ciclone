@@ -4,14 +4,14 @@ const CycloneSchema = require('../schemas/cycloneSchema');
 const CycloneModel = mongoose.model('CycloneModel', CycloneSchema);
 
 class Cyclone {
-  constructor(name, currentBasin, startDate, endDate, stormType, stormSpeed) {
+  constructor(name, currentBasin, startDate, endDate, stormType, windSpeed) {
     this.cyclone = new CycloneModel({
       name,
       currentBasin,
       startDate,
       endDate,
       stormType,
-      stormSpeed,
+      windSpeed,
     });
   }
 
@@ -35,8 +35,29 @@ class Cyclone {
     return this.cyclone.stormType;
   }
 
-  getStormSpeed() {
-    return this.cyclone.stormSpeed;
+  getwindSpeed() {
+    return this.cyclone.windSpeed;
+  }
+
+  saveCyclone() {
+    return new Promise((resolve) => {
+      this.cyclone.save().then(() => {
+        resolve();
+      });
+    });
+  }
+
+  findMe() {
+    return new Promise((resolve) => {
+      CycloneModel.findOne({ name: this.cyclone.name },
+        (err) => { if (err) { resolve(false); } }).then((cyclone) => {
+        if (cyclone) {
+          this.cyclone = cyclone;
+          resolve(true);
+        }
+        resolve(false);
+      });
+    });
   }
 }
 
