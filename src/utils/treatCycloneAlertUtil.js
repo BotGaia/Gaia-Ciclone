@@ -1,17 +1,12 @@
-const mongoose = require('mongoose');
-const CycloneAlertSchema = require('../schemas/cycloneAlertSchema');
-
-const CycloneAlertModel = mongoose.model('CycloneAlertModel', CycloneAlertSchema);
+const CycloneAlertModel = require('../models/CycloneAlertModel');
 
 module.exports = {
   saveCycloneAlert: requestBody => new Promise((resolve) => {
-    const cycloneAlert = new cycloneAlert(requestBody.telegramId);
+    const cycloneAlert = new CycloneAlertModel(requestBody.telegramId);
 
-    cycloneAlert.setTelegramId(requestBody.telegramId);
+    // cycloneAlert.setTelegramId(requestBody.telegramId);
 
-    CycloneAlertModel.find({
-      telegramID: cycloneAlert.getTelegramId(),
-    }).then(() => {
+    cycloneAlert.findMe().then(() => {
       cycloneAlert.saveCycloneAlert().then(() => resolve(cycloneAlert));
     });
   }),

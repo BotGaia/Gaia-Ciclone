@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const endpoints = require('./utils/endpointsUtil');
 const CycloneAlertSchema = require('./schemas/cycloneAlertSchema');
 const CycloneAlertModel = mongoose.model('CycloneAlertModel', CycloneAlertSchema);
 const treatCycloneAlert = require('../src/utils/treatCycloneAlertUtil');
@@ -48,3 +49,5 @@ router.get('/deleteCycloneAlert', (req, res) => {
     });
   });
 });
+
+module.exports = app => app.use('/', router);

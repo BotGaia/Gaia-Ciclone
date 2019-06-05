@@ -26,4 +26,17 @@ module.exports = class CycloneAlert {
       });
     });
   }
+
+  findMe() {
+    return new Promise((resolve) => {
+      CycloneAlertModel.findOne({ telegramId: this.cycloneAlert.telegramId },
+        (err) => { if (err) { resolve(false); } }).then((cycloneAlert) => {
+        if (cycloneAlert) {
+          this.cycloneAlert = cycloneAlert;
+          resolve(true);
+        }
+        resolve(false);
+      });
+    });
+  }
 };
