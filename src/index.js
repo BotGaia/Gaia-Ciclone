@@ -2,11 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongooseConnection = require('./db/cycloneMongooseConnectionDb');
-const CycloneTimer = require('./utils/cycloneTimerUtil');
+const cycloneTimer = require('./utils/cycloneTimerUtil');
 
 const app = express();
 
-CycloneTimer.cycloneTimer();
+cycloneTimer.cycloneTimer();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

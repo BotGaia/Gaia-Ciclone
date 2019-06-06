@@ -8,10 +8,12 @@ module.exports = {
     const params = {
       client_id: process.env.CYCLONE_ID,
       client_secret: process.env.CYCLONE_SECRET,
+      filter: 'all',
+      format: 'json',
     };
 
     return new Promise((resolve) => {
-      axios.get('https://api.aerisapi.com/tropicalcyclones/?&filter=all&format=json', { params })
+      axios.get('https://api.aerisapi.com/tropicalcyclones', { params })
         .then(async (response) => {
           if (response.data.success) {
             if (response.data.error) {
