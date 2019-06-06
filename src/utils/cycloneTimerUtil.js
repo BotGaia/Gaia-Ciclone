@@ -6,12 +6,12 @@ function sleep(ms) {
 
 function cycloneTimer() {
   return new Promise((resolve) => {
-    CycloneRequest.getAllCyclones().then(() => {
-      sleep(1000 * 60 * 60 * 2);
+    CycloneRequest.getAllCyclones().then(async() => {
+      await sleep(1000 * 60 * 60 * 2);
       cycloneTimer();
       resolve();
     });
   });
 }
 
-module.exports = { cycloneTimer };
+module.exports = { cycloneTimer, sleep };

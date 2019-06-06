@@ -2,6 +2,7 @@ const axios = require('axios');
 const Cyclone = require('../models/CycloneModel');
 const readCyclones = require('../utils/readCyclonesUtil');
 
+
 module.exports = {
   getAllCyclones: () => {
     const params = {
@@ -15,7 +16,7 @@ module.exports = {
           if (response.data.success) {
             if (response.data.error) {
               resolve(response);
-            } else {
+            } else if(response.data.response.isArray) {
               await readCyclones.deleteAllCyclones();
               response.data.response.forEach((cycloneElement) => {
                 const cyclone = new Cyclone(
@@ -24,11 +25,22 @@ module.exports = {
                   cycloneElement.profile.lifespan.startDateTimeISO,
                   cycloneElement.profile.lifespan.endDateTimeISO,
                   cycloneElement.position.details.stormType,
-                  cycloneElement.position.details.windSpeedKPH,
+                  cycloneElement.position.details.windSpeedKPH
                 );
                 cyclone.saveCyclone();
               });
-              resolve(response.data.response);
+              resolve(response.data);
+            } else {
+              await readCyclones.deleteAllCyclones();
+              const cyclone = new Cyclone(
+                response.data.response.profile.name,
+                response.data.response.profile.basinCurrent,
+                response.data.response.profile.lifespan.startDateTimeISO,
+                response.data.response.profile.lifespan.endDateTimeISO,
+                response.data.response.position.details.stormType,
+                response.data.response.position.details.windSpeedKPH
+              );
+              cyclone.saveCyclone();
             }
           } else {
             resolve(response.data);
