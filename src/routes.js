@@ -1,6 +1,6 @@
 const express = require('express');
-const ReadCyclones = require('./utils/readCyclonesUtil');
 const mongoose = require('mongoose');
+const ReadCyclones = require('./utils/readCyclonesUtil');
 const endpoints = require('./utils/endpointsUtil');
 const CycloneAlertSchema = require('./schemas/cycloneAlertSchema');
 

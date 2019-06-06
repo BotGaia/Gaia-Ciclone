@@ -16,7 +16,7 @@ module.exports = {
           if (response.data.success) {
             if (response.data.error) {
               resolve(response);
-            } else if(response.data.response.isArray) {
+            } else if (response.data.response.isArray) {
               await readCyclones.deleteAllCyclones();
               response.data.response.forEach((cycloneElement) => {
                 const cyclone = new Cyclone(
@@ -25,7 +25,7 @@ module.exports = {
                   cycloneElement.profile.lifespan.startDateTimeISO,
                   cycloneElement.profile.lifespan.endDateTimeISO,
                   cycloneElement.position.details.stormType,
-                  cycloneElement.position.details.windSpeedKPH
+                  cycloneElement.position.details.windSpeedKPH,
                 );
                 cyclone.saveCyclone();
               });
@@ -38,7 +38,7 @@ module.exports = {
                 response.data.response.profile.lifespan.startDateTimeISO,
                 response.data.response.profile.lifespan.endDateTimeISO,
                 response.data.response.position.details.stormType,
-                response.data.response.position.details.windSpeedKPH
+                response.data.response.position.details.windSpeedKPH,
               );
               cyclone.saveCyclone();
             }

@@ -5,25 +5,26 @@ const chai = require('chai');
 const Cyclone = require('../models/CycloneModel');
 const ReadCyclones = require('../utils/readCyclonesUtil');
 const cycloneRequest = require('../requests/cycloneRequest');
-const Timer = require ('../utils/cycloneTimerUtil'); 
+const Timer = require('../utils/cycloneTimerUtil');
+
 const should = chai.should();
 
 const mockCyclone = new Cyclone(
-  "testName",
-  "testBasin",
-  "testStartDate",
-  "testEndDate",
-  "testStorm",
-  "testWindspeed"
+  'testName',
+  'testBasin',
+  'testStartDate',
+  'testEndDate',
+  'testStorm',
+  'testWindspeed',
 );
 
 describe('Test Cyclone', () => {
   it('Should read test cyclone', () => {
     mockCyclone.saveCyclone();
     ReadCyclones.readCyclones().then((cyclones) => {
-      cyclones.forEach(element => {
-        if (element.name === "testName") {
-          element.currentBasin.should.equal("testBasin");
+      cyclones.forEach((element) => {
+        if (element.name === 'testName') {
+          element.currentBasin.should.equal('testBasin');
         }
       });
     });

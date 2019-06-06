@@ -6,7 +6,7 @@ function sleep(ms) {
 
 function cycloneTimer() {
   return new Promise((resolve) => {
-    CycloneRequest.getAllCyclones().then(async() => {
+    CycloneRequest.getAllCyclones().then(async () => {
       await sleep(1000 * 60 * 60 * 2);
       cycloneTimer();
       resolve();
