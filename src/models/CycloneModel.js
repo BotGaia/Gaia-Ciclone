@@ -43,7 +43,7 @@ module.exports = class Cyclone {
   saveCyclone() {
     return new Promise((resolve) => {
       this.cyclone.save().then(() => {
-        resolve();
+        resolve(true);
       });
     });
   }
@@ -54,7 +54,7 @@ module.exports = class Cyclone {
         if (err) {
           reject(err);
         } else {
-          resolve();
+          resolve(true);
         }
       });
     });
