@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 module.exports = {
@@ -16,13 +17,13 @@ module.exports = {
     };
 
     if (process.env.ENVIRONMENT === 'dev') {
-      mongoose.connect('mongodb://mongo:27017/gaiaciclone', options);
+      mongoose.connect('mongodb://mongociclone:27018/gaiaciclone', options).then().catch();
     } else if (process.env.ENVIRONMENT === 'homolog') {
-      // mongoose.connect(`mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@35.225.250.253/${process.env.DB}`,
-      // { useNewUrlParser: true });
+      mongoose.connect(`mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@35.194.47.205/${process.env.DB}`,
+        { useNewUrlParser: true });
     } else if (process.env.ENVIRONMENT === 'production') {
-      // mongoose.connect(`mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@35.222.146.138/${process.env.DB}`,
-      // { useNewUrlParser: true });
+      mongoose.connect(`mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@35.226.43.230/${process.env.DB}`,
+        { useNewUrlParser: true });
     }
   },
 };

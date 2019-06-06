@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongooseConnection = require('./db/mongooseConnectionDb');
+const mongooseConnection = require('./db/cycloneMongooseConnectionDb');
 const CycloneTimer = require('./utils/cycloneTimerUtil');
 
 const app = express();
