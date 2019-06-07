@@ -68,7 +68,7 @@ deployHomolog:
     - gcloud auth activate-service-account --key-file ${SERVICE_ACCOUNT} --project=${GKE_PROJECT}
     - gcloud container clusters get-credentials gaia-cluster --zone us-central1-a --project gaia-240100
     - kubectl delete deployment.apps/gaia-ciclone-hml service/gaia-ciclone-hml
-    - cat k8s/gaia_ciclone_hml.yaml | sed "s/{{API_KEY}}/$API_KEY/g" | kubectl apply -f -
+    - cat k8s/gaia_ciclone_hml.yaml | sed "s/{{CYCLONE_ID_HML}}/$CYCLONE_ID_HML/g" | sed "s/{{CYCLONE_SECRET_HML}}/$CYCLONE_SECRET_HML/g" | sed "s/{{DB}}/$DB/g" | sed "s/{{PASS_DB}}/$PASS_DB/g" | sed "s/{{USER_DB}}/$USER_DB/g" | kubectl apply -f -
 
 deployProd:
   stage: deploy
@@ -80,4 +80,4 @@ deployProd:
     - gcloud auth activate-service-account --key-file ${SERVICE_ACCOUNT} --project=${GKE_PROJECT}
     - gcloud container clusters get-credentials gaia-cluster --zone us-central1-a --project gaia-240100
     - kubectl delete deployment.apps/gaia-ciclone service/gaia-ciclone
-    - cat k8s/gaia_ciclone.yaml | sed "s/{{API_KEY}}/$API_KEY/g" | kubectl apply -f -
+    - cat k8s/gaia_ciclone.yaml | sed "s/{{CYCLONE_ID}}/$CYCLONE_ID/g" | sed "s/{{CYCLONE_SECRET}}/$CYCLONE_SECRET/g" | sed "s/{{DB}}/$DB/g" | sed "s/{{PASS_DB}}/$PASS_DB/g" | sed "s/{{USER_DB}}/$USER_DB/g" | kubectl apply -f -
