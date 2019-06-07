@@ -11,11 +11,12 @@ const should = chai.should();
 
 const mockCyclone = new Cyclone(
   'testName',
-  'testBasin',
+  'AL',
+  'AL',
   'testStartDate',
   'testEndDate',
-  'testStorm',
-  'testWindspeed',
+  'H',
+  3.6,
 );
 
 describe('Test Cyclone', () => {
@@ -24,7 +25,7 @@ describe('Test Cyclone', () => {
     ReadCyclones.readCyclones().then((cyclones) => {
       cyclones.forEach((element) => {
         if (element.name === 'testName') {
-          element.currentBasin.should.equal('testBasin');
+          element.currentBasin.should.equal('AL');
         }
       });
     });

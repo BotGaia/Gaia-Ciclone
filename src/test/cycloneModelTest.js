@@ -8,11 +8,12 @@ const should = chai.should();
 
 const mockCyclone = new Cyclone(
   'testName',
-  'testBasin',
+  'AL',
+  'AL',
   'testStartDate',
   'testEndDate',
-  'testStorm',
-  'testWindspeed',
+  'H',
+  3.6,
 );
 
 describe('Test CycloneModel', () => {
@@ -20,8 +21,12 @@ describe('Test CycloneModel', () => {
     mockCyclone.getName().should.eql('testName');
   });
 
-  it('Should have basin', () => {
-    mockCyclone.getCurrentBasin().should.eql('testBasin');
+  it('Should have origin basin', () => {
+    mockCyclone.getCurrentBasin().should.eql('AL');
+  });
+
+  it('Should have current basin', () => {
+    mockCyclone.getCurrentBasin().should.eql('AL');
   });
 
   it('Should have startDate', () => {
@@ -33,11 +38,11 @@ describe('Test CycloneModel', () => {
   });
 
   it('Should have stormType', () => {
-    mockCyclone.getStormType().should.eql('testStorm');
+    mockCyclone.getStormType().should.eql('H');
   });
 
   it('Should have windSpeed', () => {
-    mockCyclone.getwindSpeed().should.eql('testWindspeed');
+    mockCyclone.getwindSpeed().should.eql(3.6);
   });
 
   it('Should not find cyclone', () => {

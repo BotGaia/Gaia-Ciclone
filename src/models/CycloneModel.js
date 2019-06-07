@@ -4,9 +4,10 @@ const CycloneSchema = require('../schemas/cycloneSchema');
 const CycloneModel = mongoose.model('CycloneModel', CycloneSchema);
 
 module.exports = class Cyclone {
-  constructor(name, currentBasin, startDate, endDate, stormType, windSpeed) {
+  constructor(name, originBasin, currentBasin, startDate, endDate, stormType, windSpeed) {
     this.cyclone = new CycloneModel({
       name,
+      originBasin,
       currentBasin,
       startDate,
       endDate,
@@ -18,6 +19,10 @@ module.exports = class Cyclone {
 
   getName() {
     return this.cyclone.name;
+  }
+
+  getOriginBasin() {
+    return this.cyclone.originBasin;
   }
 
   getCurrentBasin() {

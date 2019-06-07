@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Cyclone = require('../models/CycloneModel');
 const readCyclones = require('../utils/readCyclonesUtil');
+const treatCycloneDetails = require('../utils/treatCycloneDetailsUtil');
 
 
 module.exports = {
@@ -23,11 +24,12 @@ module.exports = {
               response.data.response.forEach((cycloneElement) => {
                 const cyclone = new Cyclone(
                   cycloneElement.profile.name,
-                  cycloneElement.profile.basinCurrent,
+                  treatCycloneDetails.treatBasin(cycloneElement.profile.basinOrigin),
+                  treatCycloneDetails.treatBasin(cycloneElement.profile.basinCurrent),
                   cycloneElement.profile.lifespan.startDateTimeISO,
                   cycloneElement.profile.lifespan.endDateTimeISO,
-                  cycloneElement.position.details.stormType,
-                  cycloneElement.position.details.windSpeedKPH,
+                  treatCycloneDetails.treatStormType(cycloneElement.position.details.stormType),
+                  cycloneElement.position.details.windSpeedKPH / 3.6,
                 );
                 cyclone.saveCyclone();
               });
@@ -36,11 +38,14 @@ module.exports = {
               await readCyclones.deleteAllCyclones();
               const cyclone = new Cyclone(
                 response.data.response.profile.name,
-                response.data.response.profile.basinCurrent,
+                treatCycloneDetails.treatBasin(response.data.response.profile.basinOrigin),
+                treatCycloneDetails.treatBasin(response.data.response.profile.basinCurrent),
                 response.data.response.profile.lifespan.startDateTimeISO,
                 response.data.response.profile.lifespan.endDateTimeISO,
-                response.data.response.position.details.stormType,
-                response.data.response.position.details.windSpeedKPH,
+                treatCycloneDetails.treatStormType(
+                  response.data.response.position.details.stormType,
+                ),
+                response.data.response.position.details.windSpeedKPH / 3.6,
               );
               cyclone.saveCyclone();
             }
