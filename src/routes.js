@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const ReadCyclones = require('./utils/readCyclonesUtil');
 const endpoints = require('./utils/endpointsUtil');
 const CycloneAlertSchema = require('./schemas/cycloneAlertSchema');
 
@@ -10,6 +11,12 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   res.json(endpoints.getJson());
+});
+
+router.get('/allCyclones', (req, res) => {
+  ReadCyclones.readCyclones().then((cyclones) => {
+    res.json(cyclones);
+  });
 });
 
 router.post('/createCycloneAlert', (req, res) => {
@@ -53,6 +60,5 @@ router.get('/userCycloneAlert', (req, res) => {
     }
   });
 });
-
 
 module.exports = app => app.use('/', router);

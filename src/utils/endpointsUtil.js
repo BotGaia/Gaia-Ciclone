@@ -34,6 +34,15 @@ module.exports = {
         ],
         description: 'Delete the user so he does not receive the cyclone alert',
       },
+      {
+        type: 'GET',
+        endpoint: '/allCyclones',
+        parameters: [
+          {
+          },
+        ],
+        description: 'Returns all the cyclones that are currently happening',
+      },
     ];
 
     return endpoints;
