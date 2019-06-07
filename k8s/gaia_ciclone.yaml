@@ -30,7 +30,7 @@ spec:
         - name: CYCLONE_ID
           value: {{CYCLONE_ID}}
         - name: CYCLONE_SECRET
-          calue: {{CYCLONE_SECRET}}
+          value: {{CYCLONE_SECRET}}
         - name: DB
           value: {{DB}}
         - name: PASS_DB
