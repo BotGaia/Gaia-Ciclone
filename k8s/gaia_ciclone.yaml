@@ -25,8 +25,18 @@ spec:
     spec:
       containers:
       - env:
-        - name: API_KEY
-          value: {{API_KEY}}
+        - name: ENVIRONMENT
+          value: production
+        - name: CYCLONE_ID
+          value: {{CYCLONE_ID}}
+        - name: CYCLONE_SECRET
+          value: {{CYCLONE_SECRET}}
+        - name: DB
+          value: {{DB}}
+        - name: PASS_DB
+          value: {{PASS_DB}}
+        - name: USER_DB
+          value: {{USER_DB}}
         image: caleberios/gaia-ciclone:latest
         imagePullPolicy: Always
         name: gaia-ciclone

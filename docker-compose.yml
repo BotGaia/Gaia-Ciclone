@@ -5,7 +5,8 @@ services:
     build: .
     restart: always
     environment:
-      - API_KEY=${API_KEY}
+      - CYCLONE_ID=${CYCLONE_ID}
+      - CYCLONE_SECRET=${CYCLONE_SECRET}
       - ENVIRONMENT=dev
     volumes:
       - .:/app
