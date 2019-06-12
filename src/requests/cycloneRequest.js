@@ -2,6 +2,7 @@ const axios = require('axios');
 const Cyclone = require('../models/CycloneModel');
 const readCyclones = require('../utils/readCyclonesUtil');
 const treatCycloneDetails = require('../utils/treatCycloneDetailsUtil');
+const alert = require('../utils/treatCycloneAlertUtil');
 
 
 module.exports = {
@@ -55,6 +56,29 @@ module.exports = {
         }).catch((err) => {
           resolve(err.response);
         });
+    });
+  },
+
+  sendNotifications: async () => {
+    const cyclones = await readCyclones.readCyclones();
+    const users = await alert.getAllCycloneAlerts();
+
+    return new Promise((resolve) => {
+      if (cyclones[0] && users[0]) {
+        const URL = global.URL_GATEWAY;
+        const params = {
+          users,
+          cyclones,
+        };
+
+        axios.post(URL, params).then((response) => {
+          resolve(response);
+        }).catch((err) => {
+          resolve(err);
+        });
+      }
+
+      resolve('No notifications to be sent.');
     });
   },
 };
