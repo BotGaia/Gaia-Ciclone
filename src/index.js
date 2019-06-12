@@ -3,8 +3,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongooseConnection = require('./db/cycloneMongooseConnectionDb');
 const cycloneTimer = require('./utils/cycloneTimerUtil');
+const environment = require('./config/environment');
 
 const app = express();
+
+environment.configGateway();
 
 cycloneTimer.cycloneTimer();
 
