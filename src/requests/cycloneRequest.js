@@ -1,6 +1,6 @@
 const axios = require('axios');
 const Cyclone = require('../models/CycloneModel');
-const readCyclones = require('../utils/readCyclonesUtil');
+const cycloneReading = require('../utils/readCyclonesUtil');
 const treatCycloneDetails = require('../utils/treatCycloneDetailsUtil');
 const alert = require('../utils/treatCycloneAlertUtil');
 
@@ -10,7 +10,7 @@ module.exports = {
     const params = {
       client_id: process.env.CYCLONE_ID,
       client_secret: process.env.CYCLONE_SECRET,
-      filter: 'all',
+      filter: 'atlantic',
       format: 'json',
     };
 
@@ -18,7 +18,7 @@ module.exports = {
       axios.get('https://api.aerisapi.com/tropicalcyclones', { params })
         .then(async (response) => {
           if (response.data.success) {
-            await readCyclones.deleteAllCyclones();
+            await cycloneReading.deleteAllCyclones();
             if (Array.isArray(response.data.response)) {
               response.data.response.forEach((cycloneElement) => {
                 const cyclone = new Cyclone(
@@ -42,7 +42,7 @@ module.exports = {
   },
 
   sendNotifications: async () => {
-    const cyclones = await readCyclones.readCyclones();
+    const cyclones = await cycloneReading.readCyclones();
     const users = await alert.getAllCycloneAlerts();
 
     return new Promise((resolve) => {
@@ -58,9 +58,9 @@ module.exports = {
         }).catch((err) => {
           resolve(err);
         });
+      } else {
+        resolve('No notifications to be sent.');
       }
-
-      resolve('No notifications to be sent.');
     });
   },
 };
