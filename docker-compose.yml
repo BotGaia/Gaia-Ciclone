@@ -8,6 +8,7 @@ services:
       - CYCLONE_ID=${CYCLONE_ID}
       - CYCLONE_SECRET=${CYCLONE_SECRET}
       - ENVIRONMENT=dev
+      - IP_ADDRESS=${IP_ADDRESS}
     volumes:
       - .:/app
       - /app/node_modules
