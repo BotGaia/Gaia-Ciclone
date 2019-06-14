@@ -10,7 +10,7 @@ module.exports = {
     const params = {
       client_id: process.env.CYCLONE_ID,
       client_secret: process.env.CYCLONE_SECRET,
-      filter: 'atlantic',
+      filter: 'all',
       format: 'json',
     };
 
