@@ -18,10 +18,8 @@ module.exports = {
       axios.get('https://api.aerisapi.com/tropicalcyclones', { params })
         .then(async (response) => {
           if (response.data.success) {
-            if (response.data.error) {
-              resolve(response);
-            } else if (response.data.response.isArray) {
-              await readCyclones.deleteAllCyclones();
+            await readCyclones.deleteAllCyclones();
+            if (Array.isArray(response.data.response)) {
               response.data.response.forEach((cycloneElement) => {
                 const cyclone = new Cyclone(
                   cycloneElement.profile.name,
@@ -34,25 +32,9 @@ module.exports = {
                 );
                 cyclone.saveCyclone();
               });
-              resolve(response.data);
-            } else {
-              await readCyclones.deleteAllCyclones();
-              const cyclone = new Cyclone(
-                response.data.response.profile.name,
-                treatCycloneDetails.treatBasin(response.data.response.profile.basinOrigin),
-                treatCycloneDetails.treatBasin(response.data.response.profile.basinCurrent),
-                response.data.response.profile.lifespan.startDateTimeISO,
-                response.data.response.profile.lifespan.endDateTimeISO,
-                treatCycloneDetails.treatStormType(
-                  response.data.response.position.details.stormType,
-                ),
-                response.data.response.position.details.windSpeedKPH / 3.6,
-              );
-              cyclone.saveCyclone();
             }
-          } else {
-            resolve(response.data);
           }
+          resolve(response.data);
         }).catch((err) => {
           resolve(err.response);
         });
