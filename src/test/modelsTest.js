@@ -14,10 +14,10 @@ const mockCyclone = new Cyclone(
   'testStartDate',
   'testEndDate',
   'H',
-  3.6
+  3.6,
 );
 
-const fakeAlert = new Alert('teleg'); 
+const fakeAlert = new Alert('teleg');
 
 describe('Cyclone Model', () => {
   it('should have name', () => {

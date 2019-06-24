@@ -38,25 +38,25 @@ describe('Routes', () => {
 
   it('should return cyclone alert', (done) => {
     chai.request(app).get('/userCycloneAlert')
-      .query({id: 'testIDIDtest'}).end((err, res) => {
-      res.should.have.status(200);
-      res.body.should.be.eql('Alerta de ciclone existente');
-      done();
-    });
+      .query({ id: 'testIDIDtest' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.eql('Alerta de ciclone existente');
+        done();
+      });
   });
 
   it('should delete cyclone alerts', (done) => {
     chai.request(app).get('/deleteCycloneAlert')
-      .query({id: 'testIDIDtest'}).end((err, res) => {
-      res.should.have.status(200);
-      res.body.should.be.eql('Alerta de ciclone excluído');
-    });
+      .query({ id: 'testIDIDtest' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.eql('Alerta de ciclone excluído');
+      });
 
     chai.request(app).get('/deleteCycloneAlert')
-      .query({id: 'myId'}).end((err, res) => {
-      res.should.have.status(200);
-      res.body.should.be.eql('Alerta de ciclone excluído');
-      done();
-    });
+      .query({ id: 'myId' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.eql('Alerta de ciclone excluído');
+        done();
+      });
   });
 });
