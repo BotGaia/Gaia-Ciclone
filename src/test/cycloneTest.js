@@ -2,10 +2,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const chai = require('chai');
+const axios = require('axios');
+const sinon = require('sinon');
 const Cyclone = require('../models/CycloneModel');
 const cycloneReading = require('../utils/readCyclonesUtil');
 const cycloneRequest = require('../requests/cycloneRequest');
-const Timer = require('../utils/cycloneTimerUtil');
+const timer = require('../utils/cycloneTimerUtil');
+const alert = require('../utils/treatCycloneAlertUtil');
 
 const should = chai.should();
 
@@ -19,36 +22,56 @@ const mockCyclone = new Cyclone(
   3.6,
 );
 
-describe('Cyclone Reading', () => {
-  it('should read test cyclone', () => {
-    mockCyclone.saveCyclone();
-    cycloneReading.readCyclones().then((cyclones) => {
-      cyclones.should.be.a('Array').that.has.lengthOf.at.least(1);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-      cyclones.forEach((element) => {
-        if (element.name === 'testName') {
-          element.currentBasin.should.equal('AL');
-        }
+describe('Cyclone Reading', () => {
+  it('should read test cyclone', (done) => {
+    mockCyclone.saveCyclone().then(() => {
+      cycloneReading.readCyclones().then((cyclones) => {
+        cyclones.should.be.a('Array').that.has.lengthOf.at.least(1);
+
+        cyclones.forEach((element) => {
+          if (element.name === 'testName') {
+            element.currentBasin.should.equal('AL');
+          }
+        });
+        done();
       });
     });
-
-    mockCyclone.deleteMe();
-  });
+  }).timeout(5000);
 
   it('should delete all cyclones', (done) => {
     cycloneReading.deleteAllCyclones().then(() =>  {
       cycloneReading.readCyclones().then((cyclones) => {
         cyclones.should.be.a('Array').that.has.lengthOf(0);
+        done();
       });
     });
   });
 });
 
 describe('Cyclone Timer', () => {
-  it('should run the timer');
+  it('should run the timer', (done) => {
+    const sleepStub = sinon.stub(timer, 'sleep').resolves();
+    const postStub = sinon.stub(axios, 'post').resolves({data: {}});
+    const getStub = sinon.stub(axios, 'get').resolves({data: {}});
+
+    timer.cycloneTimer();
+    sleep(5000).then(() => {
+      getStub.callCount.should.be.at.least(1);
+      postStub.callCount.should.be.equal(0);
+      done();
+    });
+
+    sleepStub.restore();
+    postStub.restore();
+    getStub.restore();
+  }).timeout(8000);
 });
 
-describe('Uncategorized Cyclone Tests', () => {
+/*describe('Uncategorized Cyclone Tests', () => {
   it('Should make a cyclone resquest', () => {
     cycloneRequest.getAllCyclones().then((cyclone) => {
       cyclone.success.should.equal(true);
@@ -57,8 +80,8 @@ describe('Uncategorized Cyclone Tests', () => {
 
   it('Should wait for 10ms', async () => {
     const firstDate = new Date();
-    await Timer.sleep(10);
+    await timer.sleep(10);
     const diff = (new Date()).getTime() - firstDate.getTime();
     diff.should.least(10);
   });
-});
+});*/
