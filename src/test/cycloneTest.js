@@ -99,7 +99,7 @@ describe('Cyclone', () => {
       });
     });
 
-    it('should not send notifications', (done) => {     
+    it('should not send notifications', (done) => {
       mockCyclone.saveCyclone().then(() => {
       cycloneRequest.sendNotifications().then((res) => {
         res.should.be.a('String').that.is.equal('No notifications to be sent.');
