@@ -64,7 +64,7 @@ describe('Cyclone', () => {
     const postStub = sinon.stub(axios, 'post').resolves({status: 200});
     const anotherCyclone = new Cyclone('name', 'here', 'there', 'now', 'never', 'cool', 22);
     
-    //fakeUser.saveCycloneAlert().then(() => {
+    fakeUser.saveCycloneAlert().then(() => {
       anotherCyclone.saveCyclone().then(() => {
         cycloneRequest.sendNotifications().then((res) => {
           res.should.have.status(200);
@@ -72,8 +72,8 @@ describe('Cyclone', () => {
           done();
         });
       });
-      //});
-    }).timeout(10000);
+    });
+  }).timeout(10000);
 
     it('should read test cyclone', (done) => {
       mockCyclone.saveCyclone().then(() => {
