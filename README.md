@@ -3,6 +3,8 @@
 [![pipeline status](https://gitlab.com/botgaia/Gaia-Ciclone/badges/master/pipeline.svg)](https://gitlab.com/botgaia/Gaia-Ciclone/commits/master)
 [![coverage report](https://gitlab.com/botgaia/Gaia-Ciclone/badges/master/coverage.svg)](https://gitlab.com/botgaia/Gaia-Ciclone/commits/master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Generic badge](https://img.shields.io/badge/StyleGuide-Eslint-<COLOR>.svg)](https://shields.io/)
+[![Version](https://img.shields.io/badge/Version-v2.0-blue.svg)](https://github.com/BotGaia/Gaia-Ciclone/releases/tag/v2.0)
 
 ---
 
