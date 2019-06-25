@@ -1,6 +1,6 @@
 {
   "name": "gaia-ciclone",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "This service is responsible for notifying the user when there are cyclones in the world.",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,8 @@
     "chai-http": "^4.2.1",
     "express": "^4.16.4",
     "mocha": "^6.1.4",
-    "mongoose": "^5.4.20"
+    "mongoose": "^5.4.20",
+    "sinon": "^7.3.2"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

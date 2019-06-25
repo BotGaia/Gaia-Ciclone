@@ -9,7 +9,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('Routes', () => {
-  it('Should get all cyclone alerts', (done) => {
+  it('should get all cyclone alerts', (done) => {
     chai.request(app).get('/allCycloneAlerts').end((err, res) => {
       res.should.have.status(200);
       res.body.should.be.a('Array');
@@ -25,7 +25,7 @@ describe('Routes', () => {
     });
   }).timeout(5000);
 
-  it('Should create notification', (done) => {
+  it('should create notification', (done) => {
     const cycloneAlert = {
       telegramId: 'testIDIDtest',
     };
@@ -35,4 +35,28 @@ describe('Routes', () => {
       done();
     });
   }).timeout(5000);
+
+  it('should return cyclone alert', (done) => {
+    chai.request(app).get('/userCycloneAlert')
+      .query({ id: 'testIDIDtest' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.eql('Alerta de ciclone existente');
+        done();
+      });
+  });
+
+  it('should delete cyclone alerts', (done) => {
+    chai.request(app).get('/deleteCycloneAlert')
+      .query({ id: 'testIDIDtest' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.eql('Alerta de ciclone excluído');
+      });
+
+    chai.request(app).get('/deleteCycloneAlert')
+      .query({ id: 'myId' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.eql('Alerta de ciclone excluído');
+        done();
+      });
+  });
 });
