@@ -30,11 +30,10 @@ module.exports = {
                   treatCycloneDetails.treatStormType(cycloneElement.position.details.stormType),
                   cycloneElement.position.details.windSpeedKPH / 3.6,
                 );
-                cyclone.saveCyclone();
+                resolve(cyclone.saveCyclone());
               });
             }
           }
-          resolve(response.data);
         }).catch((err) => {
           resolve(err.response);
         });
@@ -46,7 +45,7 @@ module.exports = {
     const users = await alert.getAllCycloneAlerts();
 
     return new Promise((resolve) => {
-      if (cyclones[0] && users[0]) {
+      if (cyclones.length > 0 && users.length > 0) {
         const URL = global.URL_GATEWAY;
         const params = {
           users,

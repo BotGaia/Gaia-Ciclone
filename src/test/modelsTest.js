@@ -57,8 +57,8 @@ describe('Cyclone Model', () => {
   it('should save, find and delete', (done) => {
     const newCyclone = new Cyclone('newC', 'here', 'there', 'now', 'never', 'cool', 22);
 
-    newCyclone.saveCyclone().then((isSaved) => {
-      isSaved.should.be.equal(true);
+    newCyclone.saveCyclone().then((cyclone) => {
+      cyclone.name.should.be.equal('newC');
       newCyclone.findMe().then((isFound) => {
         isFound.should.be.equal(true);
         newCyclone.deleteMe().then((isDeleted) => {

@@ -48,7 +48,7 @@ module.exports = class Cyclone {
   saveCyclone() {
     return new Promise((resolve) => {
       this.cyclone.save().then(() => {
-        resolve(true);
+        resolve(this.cyclone);
       });
     });
   }
